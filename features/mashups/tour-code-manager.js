@@ -1043,11 +1043,11 @@ List: ${bIsExistingTour ? '(Unchanged)' : changedFilesDict[`metadata/list.txt`]}
 
     //console.log(`Trying to create PR at https://github.com/OperationTourCode/${sRepo}/`);
 
-    const sIdentifiedComment = `(${user}) ${sKey}: ${sComment}`;
-
     // Escape @ in user rank so that GitHub doesn't consider it a link to a GH account name
     // \ doesn't work: https://github.com/github/markup/issues/1168
-    const sSanitizedUsername = user.replace(`@`, `@<!-- -->`);
+    const sSanitizedUsername = user.replace(`@`, `@\u200B`);
+
+	const sIdentifiedComment = `(${sSanitizedUsername}) ${sKey}: ${sComment}`;
 
     octokit
     .createPullRequest({
